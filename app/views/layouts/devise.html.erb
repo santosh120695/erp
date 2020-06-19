@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Deepak Cybit Boiler Plate</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= render "globals/meta" %>
+
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body class="c-app flex-row align-items-center">
+  <div class="container">
+  <%= yield %>
+  </div>
+  <!-- CoreUI and necessary plugins-->
+  <%= javascript_pack_tag "main" %>
+  <!--<![endif]-->
+  </body>
+</html>

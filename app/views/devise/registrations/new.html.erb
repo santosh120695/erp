@@ -1,0 +1,46 @@
+<style>
+  .input-group-text{
+    padding: 0.275rem 0.75rem !important;
+  }
+</style>
+<div class="row justify-content-center">
+  <div class="col-md-6">
+    <div class="card mx-4">
+      <div class="card-body p-4">
+        <h1>Register</h1>
+        <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+        <p class="text-muted">Create your account</p>
+
+        <div class="input-group mb-3">
+          <div class="input-group-prepend"><span class="input-group-text">
+                    <%= image_tag "icons/envelope-open.svg" %></span></div>
+          <%= f.email_field :email, autofocus: true, autocomplete: "email",class:"form-control",placeholder:"Email" %>
+        </div>
+          <% if @minimum_password_length %>
+            <em>(<%= @minimum_password_length %> characters minimum)</em>
+          <% end %><br />
+        <div class="input-group mb-3">
+          <div class="input-group-prepend"><span class="input-group-text">
+                    <%= image_tag "icons/lock-locked.svg" %></span></div>
+
+
+          <%= f.password_field :password, autocomplete: "new-password",class:"form-control",placeholder:"Password" %>
+
+        </div>
+
+        <div class="input-group mb-4">
+          <div class="input-group-prepend"><span class="input-group-text">
+                    <%= image_tag "icons/lock-locked.svg" %></span></div>
+          <%= f.password_field :password_confirmation, autocomplete: "new-password",class:"form-control",placeholder:"Re-enter Password" %>
+        </div>
+
+          <%= f.submit "Create Account",class:"btn btn-block btn-success" %>
+        <a href = "<%= new_user_session_path %>" class="btn btn-block btn-warning" type="button">Log In</a>
+      </div>
+          <% end %>
+
+    </div>
+  </div>
+  </div>
+
+
