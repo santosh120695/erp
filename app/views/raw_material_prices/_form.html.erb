@@ -1,0 +1,32 @@
+<%= form_with(model: raw_material_price, local: true) do |form| %>
+  <% if raw_material_price.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(raw_material_price.errors.count, "error") %> prohibited this raw_material_price from being saved:</h2>
+
+      <ul>
+        <% raw_material_price.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :raw_material_id %>
+    <%= form.text_field :raw_material_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :price %>
+    <%= form.text_field :price %>
+  </div>
+
+  <div class="field">
+    <%= form.label :price_date %>
+    <%= form.date_select :price_date %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

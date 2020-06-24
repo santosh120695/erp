@@ -1,0 +1,33 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Stock Levels</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Item type</th>
+      <th>Item</th>
+      <th>As on</th>
+      <th>Quantity</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @stock_levels.each do |stock_level| %>
+      <tr>
+        <td><%= stock_level.item_type %></td>
+        <td><%= stock_level.item_id %></td>
+        <td><%= stock_level.as_on %></td>
+        <td><%= stock_level.quantity %></td>
+        <td><%= link_to 'Show', stock_level %></td>
+        <td><%= link_to 'Edit', edit_stock_level_path(stock_level) %></td>
+        <td><%= link_to 'Destroy', stock_level, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Stock Level', new_stock_level_path %>

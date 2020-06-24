@@ -1,0 +1,36 @@
+<%= form_with(model: cost_sheet, local: true) do |form| %>
+  <% if cost_sheet.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(cost_sheet.errors.count, "error") %> prohibited this cost_sheet from being saved:</h2>
+
+      <ul>
+        <% cost_sheet.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= form.label :name %>
+    <%= form.text_field :name ,class:"form-control" %>
+  </div>
+
+  <div class="form-group">
+
+    <%= form.hidden_field :product_id,value:params[:product_id] %>
+  </div>
+
+
+
+  <div class="form-group">
+    <%= form.label :active %>
+    <%= form.check_box :active %>
+  </div>
+
+
+
+  <div class="actions">
+    <%= form.submit "Create Cost Sheet",class:"btn btn-success" %>
+  </div>
+<% end %>

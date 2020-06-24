@@ -1,0 +1,48 @@
+
+<%= content_for :breadcrumb do %>
+  <li class="breadcrumb-item">Home</li>
+
+  <li class="breadcrumb-item active">Products</li>
+  <% end %>
+
+<%= content_for :buttons do %>
+  <%= link_to new_product_path,class:"btn btn-primary btn-sm float-right" do %>
+    <i class="fa fa-plus mr-2"></i> New Product
+  <% end %>
+  <% end %>
+
+
+
+<h5>Listing all Products</h5>
+<hr>
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Code</th>
+      <th>Dimension</th>
+      <th>Finish</th>
+      <th>Cost</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @products.each do |product| %>
+      <tr>
+        <td><%= product.name %></td>
+        <td><%= product.code %></td>
+        <td><%= product.dimension %></td>
+        <td><%= product.finish %></td>
+        <td><%= product.cost %></td>
+        <td>
+          <%= link_to product,class:"btn btn-sm btn-info" do %>
+          <i class="fa fa-eye mr-2"></i>  Details
+          <% end %>
+
+            </td>
+
+      </tr>
+    <% end %>
+  </tbody>
+</table>

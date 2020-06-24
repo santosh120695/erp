@@ -27,6 +27,10 @@ gem 'jbuilder', '~> 2.7'
 
 gem 'devise'
 gem 'coreui-rails'
+gem "aws-sdk-s3", require: false
+
+gem 'simple_form'
+gem 'rails_admin', '~> 2.0'
 
 
 
@@ -36,11 +40,15 @@ gem 'bootsnap', '>= 1.4.2', require: false
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+  gem 'faker', :git => 'https://github.com/faker-ruby/faker.git', :branch => 'master'
+
 end
+
 
 group :development do
   # Access an interactive console on exception pages or by calling 'console' anywhere in the code.
   gem 'web-console', '>= 3.3.0'
+  gem 'rails-erd'
 end
 
 group :test do

@@ -1,0 +1,2 @@
+class CostHead < ApplicationRecord
+end

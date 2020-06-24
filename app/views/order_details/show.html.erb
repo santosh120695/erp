@@ -1,0 +1,49 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Pi:</strong>
+  <%= @order_detail.pi_id %>
+</p>
+
+<p>
+  <strong>Product:</strong>
+  <%= @order_detail.product_id %>
+</p>
+
+<p>
+  <strong>Quantity:</strong>
+  <%= @order_detail.quantity %>
+</p>
+
+<p>
+  <strong>Rate:</strong>
+  <%= @order_detail.rate %>
+</p>
+
+<p>
+  <strong>Discount percentage:</strong>
+  <%= @order_detail.discount_percentage %>
+</p>
+
+<p>
+  <strong>Amount:</strong>
+  <%= @order_detail.amount %>
+</p>
+
+<p>
+  <strong>Tax:</strong>
+  <%= @order_detail.tax %>
+</p>
+
+<p>
+  <strong>Total amount:</strong>
+  <%= @order_detail.total_amount %>
+</p>
+
+<p>
+  <strong>Status:</strong>
+  <%= @order_detail.status %>
+</p>
+
+<%= link_to 'Edit', edit_order_detail_path(@order_detail) %> |
+<%= link_to 'Back', order_details_path %>

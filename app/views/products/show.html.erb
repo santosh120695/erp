@@ -1,0 +1,62 @@
+
+<%= content_for :breadcrumb do %>
+  <li class="breadcrumb-item">Home</li>
+
+  <li class="breadcrumb-item "><%= link_to "Products",products_path %></li>
+  <li class="breadcrumb-item active"><%= @product.name %></li>
+<% end %>
+
+<%= content_for :buttons do %>
+  <%= link_to edit_product_path(@product),class:"btn btn-warning btn-sm float-right" do %>
+    <i class="fa fa-edit mr-2"></i> Edit Product
+  <% end %>
+  <%= link_to product_path(@product),class:"btn btn-danger btn-sm float-right mr-2", method: :delete, data: { confirm: 'Are you sure?' } do %>
+    <i class="fa fa-trash mr-2"></i> Delete Product
+  <% end %>
+  <%= link_to cost_sheets_path(product_id: @product.id),class:"btn btn-success btn-sm float-right mr-2" do %>
+    <i class="fa fa-rupee-sign mr-2"></i> Manage Cost Sheets
+  <% end %>
+
+
+<% end %>
+<h5>Product Details</h5>
+<hr>
+<table class="table table-bordered">
+  <tr>
+    <th>Name</th><td>  <%= @product.name %></td>
+    <th>Code</th><td>  <%= @product.code %></td>
+  </tr>
+  <tr>
+    <th>Dimension</th><td>  <%= @product.dimension %></td>
+    <th>Finish</th><td>  <%= @product.finish %></td>
+  </tr>
+  <tr>
+    <th>Packing Size</th><td>  <%= @product.packing_size %></td>
+    <th>CBM</th><td>  <%= @product.cbm %></td>
+  </tr>
+  <tr>
+    <th>Range</th><td>  <%= @product.range %></td>
+    <th>Cost</th><td>  <%= @product.cost %></td>
+  </tr>
+  <tr>
+    <th>Notes/Remarks</th>
+    <td colspan="3">
+      <%= @product.notes %>
+    </td>
+  </tr>
+  <tr>
+    <th>Images</th>
+    <td colspan="3">
+      <div class="owl-carousel">
+      <% @product.images.each do |i| %>
+      <%= image_tag i,class:"img-fluid" %>
+      <% end %>
+      </div>
+    </td>
+  </tr>
+
+
+
+</table>
+
+

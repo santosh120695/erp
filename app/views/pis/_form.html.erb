@@ -1,0 +1,47 @@
+<%= form_with(model: pi, local: true) do |form| %>
+  <% if pi.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(pi.errors.count, "error") %> prohibited this pi from being saved:</h2>
+
+      <ul>
+        <% pi.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :customer_id %>
+    <%= form.text_field :customer_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :uuid %>
+    <%= form.text_field :uuid %>
+  </div>
+
+  <div class="field">
+    <%= form.label :order_date %>
+    <%= form.date_select :order_date %>
+  </div>
+
+  <div class="field">
+    <%= form.label :reference %>
+    <%= form.text_field :reference %>
+  </div>
+
+  <div class="field">
+    <%= form.label :user_id %>
+    <%= form.text_field :user_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :sales_person %>
+    <%= form.number_field :sales_person %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

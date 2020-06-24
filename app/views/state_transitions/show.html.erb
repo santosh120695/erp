@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>From:</strong>
+  <%= @state_transition.from %>
+</p>
+
+<p>
+  <strong>To:</strong>
+  <%= @state_transition.to %>
+</p>
+
+<p>
+  <strong>Comment:</strong>
+  <%= @state_transition.comment %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @state_transition.user_id %>
+</p>
+
+<p>
+  <strong>Order detail:</strong>
+  <%= @state_transition.order_detail_id %>
+</p>
+
+<%= link_to 'Edit', edit_state_transition_path(@state_transition) %> |
+<%= link_to 'Back', state_transitions_path %>

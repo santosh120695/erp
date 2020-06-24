@@ -1,0 +1,112 @@
+
+
+<%= content_for :breadcrumb do %>
+  <li class="breadcrumb-item">Home</li>
+
+  <li class="breadcrumb-item "><%= link_to "Products",products_path %></li>
+  <li class="breadcrumb-item "><%= link_to @cost_sheet.product.name,@product %></li>
+  <li class="breadcrumb-item "><%= link_to "Cost Sheets",cost_sheets_path(product_id:@cost_sheet.product.id) %></li>
+  <li class="breadcrumb-item active"><%= @cost_sheet.name %></li>
+<% end %>
+
+<%= content_for :buttons do %>
+  <%= link_to edit_cost_sheet_path(@cost_sheet),class:"btn btn-warning btn-sm float-right" do %>
+    <i class="fa fa-edit mr-2"></i> Edit Sheet
+  <% end %>
+  <%= link_to cost_sheet_path(@cost_sheet),class:"btn btn-danger btn-sm float-right mr-2", method: :delete, data: { confirm: 'Are you sure?' } do %>
+    <i class="fa fa-trash mr-2"></i> Delete Sheet
+  <% end %>
+  <%= link_to @product,class:"btn btn-success btn-sm float-right mr-2" do %>
+    <i class="fa fa-cog mr-2"></i> Manage Product
+  <% end %>
+
+
+<% end %>
+
+<h4>
+
+  <%= @cost_sheet.name %>
+  <%= link_to "#",class:"btn btn-sm btn-primary float-right add-cost-head" do %>
+    <i class="fa fa-plus mr-2"></i>Add Cost Head
+  <% end %>
+  <%= link_to "#",class:"btn btn-sm btn-dark float-right mr-2 add-rm" do %>
+    <i class="fa fa-plus mr-2"></i>Add Raw Material
+  <% end %>
+
+
+</h4>
+
+<hr>
+<table class="table table-bordered">
+  <tr>
+    <th>Item</th>
+    <th>Quantity</th>
+    <th>Cost(INR)</th>
+    <th>Value(INR)</th>
+    <th>Action</th>
+  </tr>
+  <% total = 0 %>
+  <% @cost_sheet.cost_sheet_items.each do |csi| %>
+    <tr>
+      <td><%= csi.cost_head.present? ? csi.cost_head.name : csi.raw_material.name %></td>
+      <td><%= csi.quantity %></td>
+      <td><%= csi.cost %></td>
+      <td><%= csi.value %></td>
+      <td><%= link_to csi,class:"btn btn-sm btn-danger",method: :delete,data:{confirm:"Are you sure?"} do %>
+        <i class="fa fa-trash mr-2"></i> Delete
+        <% end %>
+          </td>
+      <% total = total  + (csi.value||=0) %>
+    </tr>
+  <% end %>
+  <tr>
+    <th colspan="4">Total (INR)</th>
+    <td><%= total %></td>
+  </tr>
+</table>
+
+
+<div class="modal fade" id="costSheetItemModal" tabindex="-1" role="dialog" aria-labelledby="costSheetItemModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="costSheetItemModalLabel">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <% @cost_sheet_item= @cost_sheet.cost_sheet_items.build() %>
+        <%= render 'cost_sheet_items/form', cost_sheet_item: @cost_sheet_item %>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary submit-form">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%= content_for :js do %>
+  $(document).ready(function(){
+    $(".add-cost-head").on("click",function(e){
+     $("#costSheetItemModal").find("#costSheetItemModalLabel").text("Add Cost Head");
+  $("#costSheetItemModal").find(".cost_sheet_item_raw_material").remove();
+  $("#costSheetItemModal").modal("show");
+  e.preventDefault();
+  })
+    $(".add-rm").on("click",function(e){
+     $("#costSheetItemModal").find("#costSheetItemModalLabel").text("Add Raw Material");
+     $("#costSheetItemModal").find(".cost_sheet_item_cost_head").remove();
+
+  $("#costSheetItemModal").modal("show");
+  e.preventDefault();
+  })
+
+  $(".submit-form").on("click",function(e){
+  $('#new_cost_sheet_item').submit();
+  })
+
+
+  });
+<% end %>

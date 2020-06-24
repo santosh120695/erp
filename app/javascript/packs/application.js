@@ -8,6 +8,8 @@ require("turbolinks").start()
 require("@rails/activestorage").start()
 require("channels")
 require("@coreui/coreui/dist/js/coreui.bundle")
+require("jquery")
+import('bootstrap')
 
 
 
@@ -20,3 +22,7 @@ require("@coreui/coreui/dist/js/coreui.bundle")
 //
 // const images = require.context('../images', true)
 // const imagePath = (name) => images(name, true)
+
+
+import 'owl.carousel/dist/owl.carousel';
+

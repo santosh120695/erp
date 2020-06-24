@@ -1,0 +1,16 @@
+
+<%= content_for :breadcrumb do %>
+  <li class="breadcrumb-item">Home</li>
+
+  <li class="breadcrumb-item "><%= link_to "Products",products_path %></li>
+  <li class="breadcrumb-item active">New Product</li>
+<% end %>
+
+<%= content_for :buttons do %>
+  <%= link_to products_path,class:"btn btn-info btn-sm float-right" do %>
+    <i class="fa fa-undo mr-2"></i> Back
+  <% end %>
+<% end %>
+
+
+<%= render 'form', product: @product %>

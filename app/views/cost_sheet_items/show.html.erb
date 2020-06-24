@@ -1,0 +1,54 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @cost_sheet_item.name %>
+</p>
+
+<p>
+  <strong>Product:</strong>
+  <%= @cost_sheet_item.product_id %>
+</p>
+
+<p>
+  <strong>Raw material:</strong>
+  <%= @cost_sheet_item.raw_material_id %>
+</p>
+
+<p>
+  <strong>Cost head:</strong>
+  <%= @cost_sheet_item.cost_head_id %>
+</p>
+
+<p>
+  <strong>Quantity:</strong>
+  <%= @cost_sheet_item.quantity %>
+</p>
+
+<p>
+  <strong>Item type:</strong>
+  <%= @cost_sheet_item.item_type %>
+</p>
+
+<p>
+  <strong>Value:</strong>
+  <%= @cost_sheet_item.value %>
+</p>
+
+<p>
+  <strong>Item:</strong>
+  <%= @cost_sheet_item.item_id %>
+</p>
+
+<p>
+  <strong>Active:</strong>
+  <%= @cost_sheet_item.active %>
+</p>
+
+<p>
+  <strong>Version:</strong>
+  <%= @cost_sheet_item.version %>
+</p>
+
+<%= link_to 'Edit', edit_cost_sheet_item_path(@cost_sheet_item) %> |
+<%= link_to 'Back', cost_sheet_items_path %>

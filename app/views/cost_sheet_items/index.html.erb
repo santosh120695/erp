@@ -1,0 +1,45 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Cost Sheet Items</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Product</th>
+      <th>Raw material</th>
+      <th>Cost head</th>
+      <th>Quantity</th>
+      <th>Item type</th>
+      <th>Value</th>
+      <th>Item</th>
+      <th>Active</th>
+      <th>Version</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @cost_sheet_items.each do |cost_sheet_item| %>
+      <tr>
+        <td><%= cost_sheet_item.name %></td>
+        <td><%= cost_sheet_item.product_id %></td>
+        <td><%= cost_sheet_item.raw_material_id %></td>
+        <td><%= cost_sheet_item.cost_head_id %></td>
+        <td><%= cost_sheet_item.quantity %></td>
+        <td><%= cost_sheet_item.item_type %></td>
+        <td><%= cost_sheet_item.value %></td>
+        <td><%= cost_sheet_item.item_id %></td>
+        <td><%= cost_sheet_item.active %></td>
+        <td><%= cost_sheet_item.version %></td>
+        <td><%= link_to 'Show', cost_sheet_item %></td>
+        <td><%= link_to 'Edit', edit_cost_sheet_item_path(cost_sheet_item) %></td>
+        <td><%= link_to 'Destroy', cost_sheet_item, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Cost Sheet Item', new_cost_sheet_item_path %>

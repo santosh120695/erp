@@ -1,0 +1,31 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Raw Material Prices</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Raw material</th>
+      <th>Price</th>
+      <th>Price date</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @raw_material_prices.each do |raw_material_price| %>
+      <tr>
+        <td><%= raw_material_price.raw_material_id %></td>
+        <td><%= raw_material_price.price %></td>
+        <td><%= raw_material_price.price_date %></td>
+        <td><%= link_to 'Show', raw_material_price %></td>
+        <td><%= link_to 'Edit', edit_raw_material_price_path(raw_material_price) %></td>
+        <td><%= link_to 'Destroy', raw_material_price, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Raw Material Price', new_raw_material_price_path %>

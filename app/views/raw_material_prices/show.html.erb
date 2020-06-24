@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Raw material:</strong>
+  <%= @raw_material_price.raw_material_id %>
+</p>
+
+<p>
+  <strong>Price:</strong>
+  <%= @raw_material_price.price %>
+</p>
+
+<p>
+  <strong>Price date:</strong>
+  <%= @raw_material_price.price_date %>
+</p>
+
+<%= link_to 'Edit', edit_raw_material_price_path(@raw_material_price) %> |
+<%= link_to 'Back', raw_material_prices_path %>
