@@ -9,7 +9,6 @@
     "@rails/ujs": "^6.0.0",
     "@rails/webpacker": "4.2.2",
     "bootstrap": "^4.5.0",
-    "coreui": "^0.4.2-alpha2",
     "datatable": "^2.0.2",
     "datatables.net": "^1.10.21",
     "jquery": "^3.5.1",
