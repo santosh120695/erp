@@ -1,0 +1,11 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  raw_material: one
+  price: 
+  price_date: 2020-06-19
+
+two:
+  raw_material: two
+  price: 
+  price_date: 2020-06-19

@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  from: 1
+  to: 1
+  comment: MyText
+  user: one
+  order_detail: one
+
+two:
+  from: 1
+  to: 1
+  comment: MyText
+  user: two
+  order_detail: two

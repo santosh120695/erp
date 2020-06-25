@@ -1,0 +1,25 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  product: one
+  raw_material: one
+  cost_head: one
+  quantity: 
+  item_type: MyString
+  value: 
+  item_id: 1
+  active: false
+  version: MyString
+
+two:
+  name: MyString
+  product: two
+  raw_material: two
+  cost_head: two
+  quantity: 
+  item_type: MyString
+  value: 
+  item_id: 1
+  active: false
+  version: MyString

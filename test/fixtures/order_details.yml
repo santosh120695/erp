@@ -1,0 +1,23 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  pi: one
+  product: one
+  quantity: 
+  rate: 
+  discount_percentage: 
+  amount: 
+  tax: 
+  total_amount: 
+  status: MyString
+
+two:
+  pi: two
+  product: two
+  quantity: 
+  rate: 
+  discount_percentage: 
+  amount: 
+  tax: 
+  total_amount: 
+  status: MyString
