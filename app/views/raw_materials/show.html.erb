@@ -1,0 +1,95 @@
+
+
+<%= content_for :breadcrumb do %>
+  <li class="breadcrumb-item">Home</li>
+
+  <li class="breadcrumb-item ">Raw Materials</li>
+  <li class="breadcrumb-item active"><%= link_to @raw_material.name,@raw_material %></li>
+<% end %>
+
+<%= content_for :buttons do %>
+  <%= link_to edit_raw_material_path(@raw_material),class:"btn btn-warning btn-sm float-right" do %>
+    <i class="fa fa-edit mr-2"></i> Edit Raw Material
+  <% end %>
+  <%= link_to raw_material_path(@raw_material),class:"btn btn-danger btn-sm float-right mr-2", method: :delete, data: { confirm: 'Are you sure?' } do %>
+    <i class="fa fa-trash mr-2"></i> Delete Raw Material
+  <% end %>
+
+
+<% end %>
+
+<h4>
+  <strong>Name:</strong>
+  <%= @raw_material.name %>
+</h4>
+<hr>
+
+<canvas id="rm-prices-chart">
+
+</canvas>
+<table class="table table-striped table-bordered">
+  <tr>
+    <th>Date</th>
+    <th>Price</th>
+  </tr>
+  <% @raw_material.raw_material_prices.each do |rmp| %>
+  <tr>
+    <td><%= rmp.price_date.to_s(:long) %></td>
+    <td><%= rmp.price %></td>
+  </tr>
+  <% end %>
+
+</table>
+
+<%= content_for :js do  %>
+  $(document).ready(function(e){
+  let prices = JSON.parse('<%= @raw_material.get_price_data %>')
+  let labels = JSON.parse('<%= @raw_material.raw_material_prices.order(:price_date).pluck(:price_date).map{|m| raw(m.to_s(:long)).gsub("&quot;","\"")} %>'.replace(/&quot;/g, '"'))
+  console.log(labels);
+
+  const rmPricesChart = new Chart(document.getElementById('rm-prices-chart'), {
+  type: 'line',
+
+  data: {
+  labels: labels,
+  datasets: [
+  {
+  label: 'Prices in Rs/Unit',
+  backgroundColor: "#bebebe",
+  borderColor: "#bfbfbf",
+  pointHoverBackgroundColor: '#fff',
+  borderWidth: 2,
+  data: prices
+  } ]
+  },
+  options: {
+  maintainAspectRatio: true,
+  legend: {
+  display: true
+  },
+  scales: {
+  xAxes: [{
+ scaleLabel:{
+  display:true,
+  labelString:"Dates",
+  },
+
+  gridLines: {
+  drawOnChartArea: true
+  }
+  }],
+
+  },
+  elements: {
+  point: {
+  radius: 5,
+  hitRadius: 10,
+  hoverRadius: 4,
+  hoverBorderWidth: 3
+  }
+  }
+  }
+  })
+  })
+
+<% end %>

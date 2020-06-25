@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :raw_materials
   resources :cost_sheet_items
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
   resources :stock_levels
