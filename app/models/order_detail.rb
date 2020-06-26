@@ -2,13 +2,15 @@ class OrderDetail < ApplicationRecord
   belongs_to :pi,optional: true
   belongs_to :product
   has_many :cost_sheets, as: :item
-  belongs_to :order_state
+  belongs_to :order_state,optional: true
   has_many :wooden_stage_transition_logs
   has_many :iron_stage_transition_logs
 
-
+  before_create :set_order_state
   after_create :clone_costs
-
+  def set_order_state
+    self.order_state_id = OrderState.first.id
+  end
   def clone_costs
     cs = self.product.cost_sheets.last.where(:item_type=>nil,item_id:nil)
     new_cs=cs.dup

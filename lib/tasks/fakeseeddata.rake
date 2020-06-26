@@ -1,7 +1,7 @@
 namespace :fakeseeddata do
 
   task generate_data: :environment do
-
+    User.destroy_all
     #Generate Users
     User.create!(first_name:"Rushabh",last_name:"Hathi",employee_id:"110011",email:"rushabh@linkwok.com",password:"1linkwok@",password_confirmation:"1linkwok@")
 
@@ -17,8 +17,9 @@ namespace :fakeseeddata do
     end
 
   #  Generate Raw Materials
-    RawMaterial.destroy_all
     RawMaterialPrice.destroy_all
+    RawMaterial.destroy_all
+
     50.times do |i|
       rm = RawMaterial.create!(name: Faker::Name.name,material_type:Faker::Name.name)
       10.times do |j|
@@ -30,7 +31,13 @@ namespace :fakeseeddata do
     ["Labour Cost","Transport Cost","Tax","Utilities"].each do |n|
     CostHead.create!(name:n)
     end
+  #  Create order details
+    OrderDetail.destroy_all
+    50.times do
+      OrderDetail.create!(:product_id=> Product.pluck(:id)[rand(90)],code:SecureRandom.hex(6),quantity: rand(1000),program:"ABC",delivery_week: rand(50))
+    end
 
+    #
 
 
   end
