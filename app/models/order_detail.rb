@@ -11,8 +11,10 @@ class OrderDetail < ApplicationRecord
   def set_order_state
     self.order_state_id = OrderState.first.id
   end
+
+
   def clone_costs
-    cs = self.product.cost_sheets.last.where(:item_type=>nil,item_id:nil)
+    cs = self.product.cost_sheets.where(:item_type=>nil,item_id:nil).last
     new_cs=cs.dup
     new_cs.item_type = 'OrderDetail'
     new_cs.item_id = self.id
