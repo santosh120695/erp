@@ -1,5 +1,5 @@
 class PisController < ApplicationController
-  before_action :set_pi, only: [:show, :edit, :update, :destroy,:add_orders]
+  before_action :set_pi, only: [:show, :edit, :update, :destroy,:add_orders,:freeze]
 
   # GET /pis
   # GET /pis.json
@@ -66,6 +66,13 @@ class PisController < ApplicationController
     OrderDetail.where(:id => params[:orders]).update_all(:pi_id => @pi.id)
     redirect_to pi_path(@pi),notice: "Orders added successfully"
 
+  end
+
+  def freeze
+
+    @pi.update(:pi_frozen => !@pi.pi_frozen,:total => @pi.order_details.sum(:total_amount))
+
+    redirect_to @pi
   end
 
   private

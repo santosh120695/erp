@@ -7,8 +7,14 @@
 <% end %>
 
 <%= content_for :buttons do %>
-  <%= link_to pis_path,class:"btn btn-info btn-sm float-right" do %>
-    <i class="fa fa-undo mr-2"></i> Back
+
+  <%= link_to freeze_pi_path,class:"btn btn-info btn-sm float-right" do %>
+    <i class="fa fa-undo mr-2"></i>
+    <% if @pi.pi_frozen? %>
+    Unfreeze
+      <% else %>
+      Freeze
+      <% end %>
   <% end %>
   <%= link_to pis_path,class:"btn btn-success btn-sm float-right mr-2",data:{toggle:"modal",target:"#orderAddModal"} do %>
     <i class="fa fa-plus mr-2"></i> Add Order
@@ -154,14 +160,42 @@
         <td><%= od.buyer_reference %></td>
         <td><%= od.code %></td>
         <td><%= od.product.name %></td>
-        <td><%= text_field_tag :packing_size,od.packing_size,:class=>"form-control od-packing-size od-change",data:{field_name:"packing_size",order_id:od.id} %></td>
+
+        <td>
+          <% if @pi.pi_frozen? %>
+            <%= od.packing_size %>
+            <% else %>
+          <%= text_field_tag :packing_size,od.packing_size,:class=>"form-control od-packing-size od-change",data:{field_name:"packing_size",order_id:od.id} %>
+            <% end %>
+        </td>
         <td class="od-quantity"><%= od.quantity %></td>
 
 
-        <td><%= text_field_tag :rate,od.rate,:class=>"form-control od-rate od-change",data:{field_name:"rate",order_id:od.id} %></td>
+        <td>
+          <% if @pi.pi_frozen? %>
+          <%= od.rate %>
+          <%else %>
+            <%= text_field_tag :rate,od.rate,:class=>"form-control od-rate od-change",data:{field_name:"rate",order_id:od.id} %>
+          <%end %>
+            </td>
         <td><%= od.product.cbm %></td>
-        <td><%= text_field_tag :rate,od.discount_percentage ,:class=>"form-control od-change od-discount-percentage", data:{field_name:"discount_percentage",order_id:od.id}%></td>
-        <td><%= text_field_tag :rate,od.total_amount ,:class=>"form-control od-change od-total-amount",data:{field_name:"total_amount",order_id:od.id}  %></td>
+        <td>
+          <% if @pi.pi_frozen? %>
+          <%= od.discount_percentage  %>
+            <% else %>
+            <%= text_field_tag :rate,od.discount_percentage ,:class=>"form-control od-change od-discount-percentage", data:{field_name:"discount_percentage",order_id:od.id}%>
+            <% end %>
+        </td>
+        <td>
+
+          <% if @pi.pi_frozen? %>
+            <%= od.total_amount  %>
+          <% else %>
+            <%= text_field_tag :rate,od.total_amount ,:class=>"form-control od-change od-total-amount",data:{field_name:"total_amount",order_id:od.id}  %>
+          <% end %>
+
+
+        </td>
       </tr>
 
     <% end %>
@@ -196,7 +230,12 @@
     <td class="pi-qty-total"><%= qty_total %></td>
     <td></td>
     <td class="pi-cbm-total"><%= cbm_total %></td>
-    <td  colspan="4" class="pi-total text-right"></td>
+    <td  colspan="4" class="pi-total text-right">
+      <% if @pi.pi_frozen? %>
+
+      <%= @pi.total %>
+      <% end %>
+    </td>
 
   </tr>
   <tr>
@@ -206,7 +245,7 @@
   </tr>
   <tr>
     <td colspan="9">
-     <strong><%= 53409.rupees%></strong>
+     <strong><%= @pi.total.to_i.rupees%></strong>
     </td>
   </tr>
   <tr>

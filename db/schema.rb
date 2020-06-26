@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_26_081710) do
+ActiveRecord::Schema.define(version: 2020_06_26_125039) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -149,6 +149,8 @@ ActiveRecord::Schema.define(version: 2020_06_26_081710) do
     t.string "country_of_origin"
     t.string "place_of_receipt_by_shipper"
     t.string "delivery_weeks"
+    t.boolean "pi_frozen", default: false
+    t.float "total"
     t.index ["customer_id"], name: "index_pis_on_customer_id"
     t.index ["user_id"], name: "index_pis_on_user_id"
   end
