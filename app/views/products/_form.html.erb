@@ -27,14 +27,19 @@
   </div>
 
   <div class="form-group">
-    <%= form.label :finish %>
-    <%= form.text_field :finish,class:"form-control",placeholder:"Finish of the product" %>
+    <%= form.label "wd_finish" %>
+    <%= form.text_field :finish,class:"form-control",placeholder:"WD Finish of the product" %>
+  </div>
+  <div class="form-group">
+    <%= form.label :wooden_finish %>
+    <%= form.text_field :wooden_finish,class:"form-control",placeholder:"Wooden Finish of the product" %>
+  </div>
+  <div class="form-group">
+    <%= form.label :iron_finish %>
+    <%= form.text_field :iron_finish,class:"form-control",placeholder:"Iron Finish of the product" %>
   </div>
 
-  <div class="form-group">
-    <%= form.label :notes %>
-    <%= form.text_area :notes,class:"form-control",placeholder:"Notes/remarks on the product " %>
-  </div>
+
 
   <div class="form-group">
     <%= form.label :packing_size %>
@@ -52,7 +57,7 @@
   </div>
 
   <div class="form-group">
-    <%= form.label :cost %>
+    <%= form.label "Price" %>
     <%= form.text_field :cost,class:"form-control",placeholder:"Base cost of the product" %>
   </div>
 
@@ -60,6 +65,17 @@
     <%= form.label :images %>
     <%= form.file_field :images,:multiple=>true %>
   </div>
+  <div class="form-group">
+    <%= form.label :description %>
+    <%= form.text_area :description,class:"form-control",placeholder:"Description of the product" %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :notes %>
+    <%= form.text_area :notes,class:"form-control",placeholder:"Notes/remarks on the product " %>
+  </div>
+
+
 
 
   <div class="form-group">

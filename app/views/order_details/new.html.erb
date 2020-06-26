@@ -1,5 +1,21 @@
-<h1>New Order Detail</h1>
+
+<%= content_for :breadcrumb do %>
+  <li class="breadcrumb-item">Home</li>
+
+  <li class="breadcrumb-item "><%= link_to "Orders",order_details_path %></li>
+  <li class="breadcrumb-item active">New Orders</li>
+<% end %>
+
+<%= content_for :buttons do %>
+  <%= link_to order_details_path,class:"btn btn-info btn-sm float-right" do %>
+    <i class="fa fa-undo mr-2"></i> Back
+  <% end %>
+<% end %>
+
+
+
+<h5>New Order</h5>
+<hr>
 
 <%= render 'form', order_detail: @order_detail %>
 
-<%= link_to 'Back', order_details_path %>

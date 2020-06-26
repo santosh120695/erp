@@ -5,7 +5,7 @@ class CostSheetsController < ApplicationController
   # GET /cost_sheets.json
   def index
     @product = Product.find(params[:product_id])
-    @cost_sheets = @product.cost_sheets
+    @cost_sheets = @product.cost_sheets.for_products
   end
 
   # GET /cost_sheets/1
@@ -70,6 +70,6 @@ class CostSheetsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def cost_sheet_params
-      params.require(:cost_sheet).permit(:name, :product_id, :raw_material_id, :cost_head_id, :quantity, :item_type, :value, :item_id, :active, :version)
+      params.require(:cost_sheet).permit(:name, :product_id, :raw_material_id, :cost_head_id, :quantity, :item_type, :value, :item_id, :active, :version,:tag)
     end
 end

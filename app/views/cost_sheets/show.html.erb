@@ -46,14 +46,20 @@
     <th>Action</th>
   </tr>
   <% total = 0 %>
-  <% @cost_sheet.cost_sheet_items.each do |csi| %>
+  <% @cost_sheet.cost_sheet_items.where(tag:'product').each do |csi| %>
     <tr>
       <td><%= csi.cost_head.present? ? csi.cost_head.name : csi.raw_material.name %></td>
       <td><%= csi.quantity %></td>
       <td><%= csi.cost %></td>
       <td><%= csi.value %></td>
-      <td><%= link_to csi,class:"btn btn-sm btn-danger",method: :delete,data:{confirm:"Are you sure?"} do %>
+
+      <td>
+        <% if @cost_sheet.pure? %>
+        <%= link_to csi,class:"btn btn-sm btn-danger",method: :delete,data:{confirm:"Are you sure?"} do %>
         <i class="fa fa-trash mr-2"></i> Delete
+        <% end %>
+          <% else %>
+        No Action Possible
         <% end %>
           </td>
       <% total = total  + (csi.value||=0) %>
@@ -64,6 +70,45 @@
     <td><%= total %></td>
   </tr>
 </table>
+<hr>
+
+<h5>Actual Costs</h5>
+<hr>
+<table class="table table-bordered">
+  <tr>
+    <th>Item</th>
+    <th>Quantity</th>
+    <th>Cost(INR)</th>
+    <th>Value(INR)</th>
+    <th>Action</th>
+  </tr>
+  <% total = 0 %>
+  <% @cost_sheet.cost_sheet_items.where(tag:'order').each do |csi| %>
+    <tr>
+      <td><%= csi.cost_head.present? ? csi.cost_head.name : csi.raw_material.name %></td>
+      <td><%= csi.quantity %></td>
+      <td><%= csi.cost %></td>
+      <td><%= csi.value %></td>
+
+      <td>
+        <% if @cost_sheet.pure? %>
+        <%= link_to csi,class:"btn btn-sm btn-danger",method: :delete,data:{confirm:"Are you sure?"} do %>
+        <i class="fa fa-trash mr-2"></i> Delete
+        <% end %>
+          <% else %>
+        No Action Possible
+        <% end %>
+          </td>
+      <% total = total  + (csi.value||=0) %>
+    </tr>
+  <% end %>
+  <tr>
+    <th colspan="4">Total (INR)</th>
+    <td><%= total %></td>
+  </tr>
+</table>
+
+
 
 
 <div class="modal fade" id="costSheetItemModal" tabindex="-1" role="dialog" aria-labelledby="costSheetItemModalLabel" aria-hidden="true">

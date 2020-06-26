@@ -1,7 +1,7 @@
 class CreateOrderDetails < ActiveRecord::Migration[6.0]
   def change
     create_table :order_details do |t|
-      t.references :pi, null: false, foreign_key: true
+      t.references :pi, null: true, foreign_key: true
       t.references :product, null: false, foreign_key: true
       t.float :quantity
       t.float :rate

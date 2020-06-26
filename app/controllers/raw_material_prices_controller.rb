@@ -28,7 +28,7 @@ class RawMaterialPricesController < ApplicationController
 
     respond_to do |format|
       if @raw_material_price.save
-        format.html { redirect_to @raw_material_price, notice: 'Raw material price was successfully created.' }
+        format.html { redirect_to @raw_material_price.raw_material, notice: 'Raw material price was successfully created.' }
         format.json { render :show, status: :created, location: @raw_material_price }
       else
         format.html { render :new }

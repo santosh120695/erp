@@ -1,0 +1,22 @@
+
+<%= content_for :breadcrumb do %>
+  <li class="breadcrumb-item">Home</li>
+
+  <li class="breadcrumb-item "><%= link_to "Orders",order_details_path %></li>
+  <li class="breadcrumb-item "><%= link_to OrderDetail.find(params[:od_id]).code,OrderDetail.find(params[:od_id]) %></li>
+  <li class="breadcrumb-item active">New Transition</li>
+
+<% end %>
+
+<%= content_for :buttons do %>
+  <%= link_to order_detail_path(params[:od_id]),class:"btn btn-info btn-sm float-right" do %>
+    <i class="fa fa-undo mr-2"></i> Back
+  <% end %>
+<% end %>
+
+
+
+<h5>New Transition</h5>
+<hr>
+<%= render 'form', transition_log: @transition_log %>
+

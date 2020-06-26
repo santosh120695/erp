@@ -1,4 +1,4 @@
-<%= form_with(model: pi, local: true) do |form| %>
+<%= simple_form_for(@pi) do |form| %>
   <% if pi.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(pi.errors.count, "error") %> prohibited this pi from being saved:</h2>
@@ -11,37 +11,76 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= form.label :customer_id %>
-    <%= form.text_field :customer_id %>
+  <div class="form-group">
+    
+    <%= form.association :customer %>
   </div>
 
-  <div class="field">
-    <%= form.label :uuid %>
-    <%= form.text_field :uuid %>
+  <div class="form-group">
+
+    <%= form.input :uuid %>
   </div>
 
-  <div class="field">
-    <%= form.label :order_date %>
-    <%= form.date_select :order_date %>
+  <div class="form-group">
+
+    <%= form.input :order_date %>
+  </div>
+  <div class="form-group">
+
+    <%= form.input :buyer_order_date %>
   </div>
 
-  <div class="field">
-    <%= form.label :reference %>
-    <%= form.text_field :reference %>
+
+  <div class="form-group">
+
+    <%= form.input :reference,:label=>"Buyer Order Number" %>
+  </div>
+  <div class="form-group">
+
+    <%= form.input :destination %>
+  </div>
+  <div class="form-group">
+
+    <%= form.input :loading_location %>
+  </div>
+  <div class="form-group">
+
+    <%= form.input :unloading_location %>
+  </div>
+  <div class="form-group">
+
+    <%= form.input :terms_of_payment %>
   </div>
 
-  <div class="field">
-    <%= form.label :user_id %>
-    <%= form.text_field :user_id %>
+  <div class="form-group">
+
+    <%= form.input :terms_of_delivery %>
+  </div>
+  <div class="form-group">
+
+    <%= form.input :country_of_origin %>
+  </div>
+  <div class="form-group">
+
+    <%= form.input :place_of_receipt_by_shipper %>
+  </div>
+  <div class="form-group">
+
+    <%= form.input :delivery_weeks %>
   </div>
 
-  <div class="field">
-    <%= form.label :sales_person %>
-    <%= form.number_field :sales_person %>
+
+
+
+
+
+
+  <div class="form-group">
+
+    <%= form.input :sales_person %>
   </div>
 
   <div class="actions">
-    <%= form.submit %>
+    <%= form.submit "Create PI",class:"btn btn-success" %>
   </div>
 <% end %>

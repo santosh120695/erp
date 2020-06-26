@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_24_043050) do
+ActiveRecord::Schema.define(version: 2020_06_26_081710) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -52,6 +52,7 @@ ActiveRecord::Schema.define(version: 2020_06_24_043050) do
     t.bigint "cost_sheet_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "tag"
     t.index ["cost_head_id"], name: "index_cost_sheet_items_on_cost_head_id"
     t.index ["cost_sheet_id"], name: "index_cost_sheet_items_on_cost_sheet_id"
     t.index ["raw_material_id"], name: "index_cost_sheet_items_on_raw_material_id"
@@ -79,8 +80,26 @@ ActiveRecord::Schema.define(version: 2020_06_24_043050) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "iron_stage_transition_logs", force: :cascade do |t|
+    t.integer "from_iron_stage_id"
+    t.integer "to_iron_stage_id"
+    t.bigint "order_detail_id", null: false
+    t.bigint "user_id", null: false
+    t.text "comment"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["order_detail_id"], name: "index_iron_stage_transition_logs_on_order_detail_id"
+    t.index ["user_id"], name: "index_iron_stage_transition_logs_on_user_id"
+  end
+
+  create_table "iron_stages", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "order_details", force: :cascade do |t|
-    t.bigint "pi_id", null: false
+    t.bigint "pi_id"
     t.bigint "product_id", null: false
     t.float "quantity"
     t.float "rate"
@@ -91,8 +110,25 @@ ActiveRecord::Schema.define(version: 2020_06_24_043050) do
     t.string "status"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "code"
+    t.integer "delivery_week"
+    t.string "program"
+    t.bigint "order_state_id"
+    t.bigint "wooden_stage_id"
+    t.bigint "iron_stage_id"
+    t.string "packing_size"
+    t.string "buyer_reference"
+    t.index ["iron_stage_id"], name: "index_order_details_on_iron_stage_id"
+    t.index ["order_state_id"], name: "index_order_details_on_order_state_id"
     t.index ["pi_id"], name: "index_order_details_on_pi_id"
     t.index ["product_id"], name: "index_order_details_on_product_id"
+    t.index ["wooden_stage_id"], name: "index_order_details_on_wooden_stage_id"
+  end
+
+  create_table "order_states", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "pis", force: :cascade do |t|
@@ -104,6 +140,15 @@ ActiveRecord::Schema.define(version: 2020_06_24_043050) do
     t.integer "sales_person"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.date "buyer_order_date"
+    t.string "destination"
+    t.string "loading_location"
+    t.string "unloading_location"
+    t.string "terms_of_payment"
+    t.string "terms_of_delivery"
+    t.string "country_of_origin"
+    t.string "place_of_receipt_by_shipper"
+    t.string "delivery_weeks"
     t.index ["customer_id"], name: "index_pis_on_customer_id"
     t.index ["user_id"], name: "index_pis_on_user_id"
   end
@@ -120,6 +165,9 @@ ActiveRecord::Schema.define(version: 2020_06_24_043050) do
     t.float "cost"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.text "description"
+    t.string "wooden_finish"
+    t.string "iron_finish"
   end
 
   create_table "raw_material_prices", force: :cascade do |t|
@@ -169,6 +217,17 @@ ActiveRecord::Schema.define(version: 2020_06_24_043050) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "transition_logs", force: :cascade do |t|
+    t.integer "from_order_state_id"
+    t.integer "to_order_state_id"
+    t.integer "user_id"
+    t.text "comment"
+    t.bigint "order_detail_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["order_detail_id"], name: "index_transition_logs_on_order_detail_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -188,16 +247,42 @@ ActiveRecord::Schema.define(version: 2020_06_24_043050) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  create_table "wooden_stage_transition_logs", force: :cascade do |t|
+    t.integer "from_wooden_stage_id"
+    t.integer "to_wooden_stage_id"
+    t.bigint "order_detail_id", null: false
+    t.bigint "user_id", null: false
+    t.text "comment"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["order_detail_id"], name: "index_wooden_stage_transition_logs_on_order_detail_id"
+    t.index ["user_id"], name: "index_wooden_stage_transition_logs_on_user_id"
+  end
+
+  create_table "wooden_stages", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "cost_sheet_items", "cost_heads"
   add_foreign_key "cost_sheet_items", "raw_materials"
   add_foreign_key "cost_sheets", "products"
+  add_foreign_key "iron_stage_transition_logs", "order_details"
+  add_foreign_key "iron_stage_transition_logs", "users"
+  add_foreign_key "order_details", "iron_stages"
+  add_foreign_key "order_details", "order_states"
   add_foreign_key "order_details", "pis"
   add_foreign_key "order_details", "products"
+  add_foreign_key "order_details", "wooden_stages"
   add_foreign_key "pis", "customers"
   add_foreign_key "pis", "users"
   add_foreign_key "raw_material_prices", "raw_materials"
   add_foreign_key "stage_masters", "users"
   add_foreign_key "state_transitions", "order_details"
   add_foreign_key "state_transitions", "users"
+  add_foreign_key "transition_logs", "order_details"
+  add_foreign_key "wooden_stage_transition_logs", "order_details"
+  add_foreign_key "wooden_stage_transition_logs", "users"
 end

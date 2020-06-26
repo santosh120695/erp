@@ -1,0 +1,2 @@
+class IronStage < ApplicationRecord
+end

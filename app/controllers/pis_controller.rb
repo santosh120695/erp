@@ -1,5 +1,5 @@
 class PisController < ApplicationController
-  before_action :set_pi, only: [:show, :edit, :update, :destroy]
+  before_action :set_pi, only: [:show, :edit, :update, :destroy,:add_orders]
 
   # GET /pis
   # GET /pis.json
@@ -25,6 +25,7 @@ class PisController < ApplicationController
   # POST /pis.json
   def create
     @pi = Pi.new(pi_params)
+    @pi.user_id = current_user.id
 
     respond_to do |format|
       if @pi.save
@@ -61,6 +62,12 @@ class PisController < ApplicationController
     end
   end
 
+  def add_orders
+    OrderDetail.where(:id => params[:orders]).update_all(:pi_id => @pi.id)
+    redirect_to pi_path(@pi),notice: "Orders added successfully"
+
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_pi
@@ -69,6 +76,6 @@ class PisController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def pi_params
-      params.require(:pi).permit(:customer_id, :uuid, :order_date, :reference, :user_id, :sales_person)
+      params.require(:pi).permit(:customer_id, :uuid, :order_date, :reference, :user_id, :sales_person,:buyer_order_date)
     end
 end

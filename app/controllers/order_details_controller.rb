@@ -1,5 +1,5 @@
 class OrderDetailsController < ApplicationController
-  before_action :set_order_detail, only: [:show, :edit, :update, :destroy]
+  before_action :set_order_detail, only: [:show, :edit, :update, :destroy,:ws_transition,:is_transition]
 
   # GET /order_details
   # GET /order_details.json
@@ -61,6 +61,39 @@ class OrderDetailsController < ApplicationController
     end
   end
 
+  def ws_transition
+    WoodenStageTransitionLog.create!(order_detail_id: @order_detail.id, :from_wooden_stage_id => @order_detail.wooden_stage_id,:to_wooden_stage_id => params[:state],:user_id=>current_user.id)
+    @order_detail.wooden_stage_id = params[:state]
+    @order_detail.save
+    respond_to do |format|
+      format.html { redirect_to order_details_url, notice: 'Order detail was successfully destroyed.' }
+      format.json { @order_detail  }
+    end
+
+
+  end
+  def is_transition
+    IronStageTransitionLog.create!(order_detail_id: @order_detail.id, :from_iron_stage_id => @order_detail.iron_stage_id,:to_iron_stage_id => params[:state],:user_id=>current_user.id)
+    @order_detail.iron_stage_id = params[:state]
+    @order_detail.save
+    respond_to do |format|
+      format.html { redirect_to order_details_url, notice: 'Order detail was successfully destroyed.' }
+      format.json { @order_detail  }
+    end
+
+
+  end
+
+  def update_commercials
+    orderdet  = OrderDetail.find(params[:order_id])
+    orderdet[params[:field].to_sym] = params[:value]
+    orderdet.save!
+    respond_to do |format|
+      format.html { redirect_to order_details_url, notice: 'Order detail was successfully destroyed.' }
+      format.json { orderdet  }
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_order_detail
@@ -69,6 +102,7 @@ class OrderDetailsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def order_detail_params
-      params.require(:order_detail).permit(:pi_id, :product_id, :quantity, :rate, :discount_percentage, :amount, :tax, :total_amount, :status)
+      @params_require_order_detail_permit = params.require(:order_detail).permit(:pi_id, :product_id, :quantity, :rate, :discount_percentage, :amount, :tax, :total_amount, :status, :code,:delivery_weeks,:program,:packing_size,:buyer_reference)
+
     end
 end

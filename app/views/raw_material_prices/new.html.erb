@@ -1,5 +1,19 @@
-<h1>New Raw Material Price</h1>
+
+<%= content_for :breadcrumb do %>
+  <li class="breadcrumb-item">Home</li>
+
+  <li class="breadcrumb-item "><%= link_to "Raw Materials",raw_materials_path %></li>
+  <li class="breadcrumb-item "><%= link_to RawMaterial.find(params[:rm_id]).name,raw_material_path(params[:rm_id]) %></li>
+  <li class="breadcrumb-item active">Latest Price</li>
+<% end %>
+
+<%= content_for :buttons do %>
+  <%= link_to raw_material_path(params[:rm_id]),class:"btn btn-info btn-sm float-right" do %>
+    <i class="fa fa-undo mr-2"></i> Back
+  <% end %>
+<% end %>
+
+<h5>New Price</h5>
+<hr>
 
 <%= render 'form', raw_material_price: @raw_material_price %>
-
-<%= link_to 'Back', raw_material_prices_path %>

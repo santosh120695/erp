@@ -8,12 +8,17 @@
 <% end %>
 
 <%= content_for :buttons do %>
-  <%= link_to edit_raw_material_path(@raw_material),class:"btn btn-warning btn-sm float-right" do %>
-    <i class="fa fa-edit mr-2"></i> Edit Raw Material
-  <% end %>
   <%= link_to raw_material_path(@raw_material),class:"btn btn-danger btn-sm float-right mr-2", method: :delete, data: { confirm: 'Are you sure?' } do %>
     <i class="fa fa-trash mr-2"></i> Delete Raw Material!
   <% end %>
+  <%= link_to edit_raw_material_path(@raw_material),class:"btn btn-warning btn-sm float-right mr-2" do %>
+    <i class="fa fa-edit mr-2"></i> Edit Raw Material
+  <% end %>
+
+  <%= link_to new_raw_material_price_path(:rm_id=>@raw_material.id),class:"btn btn-success btn-sm float-right mr-2" do %>
+    <i class="fa fa-rupee-sign mr-2"></i> Add Current Price
+  <% end %>
+
 
 
 <% end %>
@@ -32,7 +37,7 @@
     <th>Date</th>
     <th>Price</th>
   </tr>
-  <% @raw_material.raw_material_prices.each do |rmp| %>
+  <% @raw_material.raw_material_prices.order("price_date DESC").each do |rmp| %>
   <tr>
     <td><%= rmp.price_date.to_s(:long) %></td>
     <td><%= rmp.price %></td>

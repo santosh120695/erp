@@ -1,0 +1,2 @@
+class WoodenStage < ApplicationRecord
+end

@@ -1,49 +1,153 @@
-<p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Pi:</strong>
-  <%= @order_detail.pi_id %>
-</p>
+<%= content_for :breadcrumb do %>
+  <li class="breadcrumb-item">Home</li>
 
-<p>
-  <strong>Product:</strong>
-  <%= @order_detail.product_id %>
-</p>
+  <li class="breadcrumb-item "><%= link_to "Orders",order_details_path %></li>
+  <li class="breadcrumb-item active"><%= @order_detail.code %></li>
+<% end %>
 
-<p>
-  <strong>Quantity:</strong>
-  <%= @order_detail.quantity %>
-</p>
+<%= content_for :buttons do %>
+  <%= link_to edit_order_detail_path(@order_detail),class:"btn btn-warning btn-sm float-right" do %>
+    <i class="fa fa-edit mr-2"></i> Edit Order
+  <% end %>
+  <%= link_to order_detail_path(@order_detail),class:"btn btn-danger btn-sm float-right mr-2", method: :delete, data: { confirm: 'Are you sure?' } do %>
+    <i class="fa fa-trash mr-2"></i> Delete Order
+  <% end %>
+  <%= link_to cost_sheet_path(@order_detail.cost_sheets.last),class:"btn btn-success btn-sm float-right mr-2" do %>
+    <i class="fa fa-rupee-sign mr-2"></i> Manage Cost Sheet
+  <% end %>
+  <%= link_to new_transition_log_path(od_id: @order_detail.id),class:"btn btn-dark btn-sm float-right mr-2" do %>
+    <i class="fa fa-bell mr-2"></i> Transition State
+  <% end %>
 
-<p>
-  <strong>Rate:</strong>
-  <%= @order_detail.rate %>
-</p>
 
-<p>
-  <strong>Discount percentage:</strong>
-  <%= @order_detail.discount_percentage %>
-</p>
 
-<p>
-  <strong>Amount:</strong>
-  <%= @order_detail.amount %>
-</p>
+<% end %>
 
-<p>
-  <strong>Tax:</strong>
-  <%= @order_detail.tax %>
-</p>
 
-<p>
-  <strong>Total amount:</strong>
-  <%= @order_detail.total_amount %>
-</p>
+<h5>Order # <%= @order_detail.code %>
+  <span class="float-right badge badge-info"><%= @order_detail.order_state.name %></span>
+</h5>
+<hr>
 
-<p>
-  <strong>Status:</strong>
-  <%= @order_detail.status %>
-</p>
+<table class="table table-bordered">
+  <tr>
+    <th>Product Name</th><td colspan="2"><%= link_to @order_detail.product.name,@order_detail.product %></td>
+    <th>Product ID</th><td colspan="2"> <%= @order_detail.product.code %></td>
+  </tr>
+  <tr>
+    <th>Product Images</th>
+    <td colspan="5">
+      <div class="owl-carousel">
+        <% @order_detail.product.images.each do |i| %>
+          <%= image_tag i,class:"img-fluid" %>
+        <% end %>
+      </div>
+    </td>
 
-<%= link_to 'Edit', edit_order_detail_path(@order_detail) %> |
-<%= link_to 'Back', order_details_path %>
+  </tr>
+
+  <tr>
+    <th>Product Description</th>
+    <td colspan="2"><%= @order_detail.product.description %></td>
+<th>Product Dimensions</th>
+    <td colspan="2"><%= @order_detail.product.dimension %></td>
+
+
+  </tr>
+
+  <tr>
+    <th>Product WD Finish</th>
+    <td><%= @order_detail.product.finish %></td>
+<th>Product wooden Finish</th>
+    <td><%= @order_detail.product.wooden_finish %></td>
+<th>Product Iron Finish</th>
+    <td><%= @order_detail.product.iron_finish %></td>
+
+
+  </tr>
+  <tr>
+    <th>Program</th>
+    <td colspan="2"><%= @order_detail.program %></td>
+    <th>Delivery Weeks</th>
+    <td colspan="2"><%= @order_detail.delivery_week %></td>
+  </tr>
+  <tr>
+    <th>Quantity</th>
+    <td colspan="2"><%= @order_detail.quantity %></td>
+    <th>Amount(Rs)</th>
+    <td colspan="2"><%= @order_detail.total_amount.present? ? @order_detail.total_amount : "NA"  %></td>
+  </tr>
+
+
+  <tr>
+    <th>Product Budgeted Cost Rs</th>
+    <td colspan="2"><%= @order_detail.get_budget_cost %></td>
+    <th>Actual Cost Rs</th>
+    <td colspan="2"><%= @order_detail.get_actual_cost %> (<%= @order_detail.get_cost_variance %>)</td>
+
+  </tr>
+
+
+
+</table>
+
+<div class="row mt-3">
+  <div class="col-md-4">
+    <h6>Wooden Stage</h6>
+    <%= select_tag :wooden_state,options_for_select(WoodenStage.pluck(:name,:id),@order_detail.wooden_stage_id) ,class:"form-control"%>
+
+    <% @order_detail.wooden_stage_transition_logs.each do |wstl| %>
+    <div>
+      <%= wstl.user.name %> transitioned from <%= wstl.get_from %> to <%= wstl.get_to %>
+    </div>
+    <% end %>
+
+  </div>
+  <div class="col-md-4">
+    <h6>Iron Stage</h6>
+    <%= select_tag :iron_state,options_for_select(IronStage.pluck(:name,:id),@order_detail.iron_stage_id) ,class:"form-control"%>
+    <% @order_detail.iron_stage_transition_logs.each do |wstl| %>
+      <div>
+        <%= wstl.user.name %> transitioned from <%= wstl.get_from %> to <%= wstl.get_to %>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+
+<%= content_for :js do %>
+
+  $(document).ready(function(){
+      $("#wooden_state").on("change",function(e){
+          $.ajax({
+              type:"POST",
+              url:"<%= ws_transition_order_detail_path(@order_detail) %>",
+              dataType:"JSON",
+              data:{state:$(e.currentTarget).val()},
+              success:function(e){
+                  alert("Transition done")
+              }
+          })
+
+
+      });
+      $("#iron_state").on("change",function(e){
+          $.ajax({
+              type:"POST",
+              url:"<%= is_transition_order_detail_path(@order_detail) %>",
+              dataType:"JSON",
+              data:{state:$(e.currentTarget).val()},
+              success:function(e){
+                  alert("Transition done")
+              }
+          })
+
+
+      });
+
+
+  })
+
+
+<% end %>

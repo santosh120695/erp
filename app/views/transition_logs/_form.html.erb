@@ -1,0 +1,17 @@
+
+<%= simple_form_for(@transition_log) do |f| %>
+  <%= f.error_notification %>
+  <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+
+  <div class="form-inputs">
+    <%= f.association :from,selected:  OrderDetail.find(params[:od_id]).order_state,input_html:{class:"disabled"} %>
+    <%= f.association :to %>
+
+    <%= f.input :comment %>
+    <%= f.hidden_field :order_detail_id ,value:params[:od_id]%>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit ,"Create Transition",class:"btn btn-success" %>
+  </div>
+<% end %>

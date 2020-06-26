@@ -31,6 +31,7 @@ gem "aws-sdk-s3", require: false
 
 gem 'simple_form'
 gem 'rails_admin', '~> 2.0'
+gem 'rupees'
 
 
 
@@ -43,6 +44,9 @@ group :development, :test do
 
 
 end
+
+gem 'country_select', '~> 4.0'
+
 
 
 group :development do

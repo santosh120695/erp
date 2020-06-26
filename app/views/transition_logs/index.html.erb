@@ -1,0 +1,35 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Transition Logs</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>From order state</th>
+      <th>To order state</th>
+      <th>User</th>
+      <th>Comment</th>
+      <th>Order detail</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @transition_logs.each do |transition_log| %>
+      <tr>
+        <td><%= transition_log.from_order_state_id %></td>
+        <td><%= transition_log.to_order_state_id %></td>
+        <td><%= transition_log.user_id %></td>
+        <td><%= transition_log.comment %></td>
+        <td><%= transition_log.order_detail_id %></td>
+        <td><%= link_to 'Show', transition_log %></td>
+        <td><%= link_to 'Edit', edit_transition_log_path(transition_log) %></td>
+        <td><%= link_to 'Destroy', transition_log, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Transition Log', new_transition_log_path %>
