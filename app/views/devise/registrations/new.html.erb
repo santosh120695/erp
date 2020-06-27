@@ -13,7 +13,7 @@
 
         <div class="input-group mb-3">
           <div class="input-group-prepend"><span class="input-group-text">
-                    <%= image_tag "icons/envelope-open.svg" %></span></div>
+                    <%= image_tag asset_path("icons/envelope-open.svg") %></span></div>
           <%= f.email_field :email, autofocus: true, autocomplete: "email",class:"form-control",placeholder:"Email" %>
         </div>
           <% if @minimum_password_length %>
@@ -21,7 +21,7 @@
           <% end %><br />
         <div class="input-group mb-3">
           <div class="input-group-prepend"><span class="input-group-text">
-                    <%= image_tag "icons/lock-locked.svg" %></span></div>
+                    <%= image_tag asset_path("icons/lock-locked.svg") %></span></div>
 
 
           <%= f.password_field :password, autocomplete: "new-password",class:"form-control",placeholder:"Password" %>
@@ -30,7 +30,7 @@
 
         <div class="input-group mb-4">
           <div class="input-group-prepend"><span class="input-group-text">
-                    <%= image_tag "icons/lock-locked.svg" %></span></div>
+                    <%= image_tag asset_path("icons/lock-locked.svg") %></span></div>
           <%= f.password_field :password_confirmation, autocomplete: "new-password",class:"form-control",placeholder:"Re-enter Password" %>
         </div>
 
