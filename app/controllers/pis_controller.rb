@@ -83,6 +83,6 @@ class PisController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def pi_params
-      params.require(:pi).permit(:customer_id, :uuid, :order_date, :reference, :user_id, :sales_person,:buyer_order_date)
+      params.require(:pi).permit(:customer_id, :uuid, :order_date, :reference, :user_id, :sales_person,:buyer_order_date,:destination,:loading_location,:unloading_location,:terms_of_payment,:terms_of_delivery,:country_of_origin,:place_of_receipt_by_shipper,:delivery_weeks)
     end
 end
