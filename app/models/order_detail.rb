@@ -24,6 +24,8 @@ class OrderDetail < ApplicationRecord
       newi = i.dup
       newi.cost_sheet_id = new_cs.id
       newi.save!
+      newi.tag = "product"
+      newi.save!
     end
 
 
