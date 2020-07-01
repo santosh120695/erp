@@ -13,7 +13,10 @@ namespace :fakeseeddata do
     #Generate Products
     Product.destroy_all
     100.times do |i|
-      Product.create!(name:Faker::Name.name,code: Faker::Code.isbn ,dimension: "33x99x124",finish:Faker::Name.female_first_name,notes:Faker::Lorem.paragraph,packing_size:rand(500).to_s,cbm:rand(500).to_s,cost:rand(5000000),range:"Range")
+      p = Product.create!(name:Faker::Name.name,code: Faker::Code.isbn ,dimension: "33x99x124",finish:Faker::Name.female_first_name,notes:Faker::Lorem.paragraph,packing_size:rand(500).to_s,cbm:rand(500).to_s,cost:rand(5000000),range:"Range")
+      cs = CostSheet.create!(:name => SecureRandom.hex(10),:active=>true,:product => p)
+      CostSheetItem.create!(:cost_sheet=>cs,:tag => "product",raw_material_id: RawMaterial.first.id,:quantity=>1,:cost=>100)
+      CostSheetItem.create!(:cost_sheet=>cs,:tag => "product",cost_head_id: CostHead.first.id,:quantity=>1,:cost=>100)
     end
 
   #  Generate Raw Materials
@@ -42,3 +45,9 @@ namespace :fakeseeddata do
 
   end
 end
+
+# Product.all.each do |p|
+#   cs = CostSheet.create!(:name => SecureRandom.hex(10),:active=>true,:product => p)
+#   CostSheetItem.create!(:cost_sheet=>cs,:tag => "product",raw_material_id: RawMaterial.first.id,:quantity=>1,:cost=>100)
+#   CostSheetItem.create!(:cost_sheet=>cs,:tag => "product",cost_head_id: CostHead.first.id,:quantity=>1,:cost=>100)
+# end

@@ -16,9 +16,13 @@
       Freeze
       <% end %>
   <% end %>
-  <%= link_to pis_path,class:"btn btn-success btn-sm float-right mr-2",data:{toggle:"modal",target:"#orderAddModal"} do %>
-    <i class="fa fa-plus mr-2"></i> Add Order
+  <%#= link_to pis_path,class:"btn btn-success btn-sm float-right mr-2",data:{toggle:"modal",target:"#orderAddModal"} do %>
+<!--    <i class="fa fa-plus mr-2"></i> Add Order-->
+  <%# end %>
+  <%= link_to pis_path,class:"btn btn-success btn-sm float-right mr-2",data:{toggle:"modal",target:"#productAddModal"} do %>
+    <i class="fa fa-plus mr-2"></i> Add Product
   <% end %>
+
   <%= link_to pis_path,class:"btn btn-warning btn-sm float-right mr-2",data:{toggle:"modal",target:"#orderAddModal"} do %>
     <i class="fa fa-file-pdf mr-2"></i> Print PI
   <% end %>
@@ -157,9 +161,13 @@
     <% qty_total = qty_total + od.quantity %>
     <% cbm_total = cbm_total + od.product.cbm.to_f %>
       <tr class="od-item">
-        <td><%= od.buyer_reference %></td>
+        <td>
+          <%= link_to od.buyer_reference.present? ? od.buyer_reference : "View Order",od %>
+        </td>
         <td><%= od.code %></td>
-        <td><%= od.product.name %></td>
+        <td>
+          <%= link_to od.product.name,od.product,target: "_blank" %>
+        </td>
 
         <td>
           <% if @pi.pi_frozen? %>
@@ -168,7 +176,17 @@
           <%= text_field_tag :packing_size,od.packing_size,:class=>"form-control od-packing-size od-change",data:{field_name:"packing_size",order_id:od.id} %>
             <% end %>
         </td>
-        <td class="od-quantity"><%= od.quantity %></td>
+        <td class="od-quantity">
+
+          <% if @pi.pi_frozen? %>
+            <%= od.quantity %>
+          <% else %>
+            <%= text_field_tag :quantity,od.quantity,:class=>"form-control od-quantity od-change",data:{field_name:"quantity",order_id:od.id} %>
+          <% end %>
+
+
+
+        </td>
 
 
         <td>
@@ -278,7 +296,7 @@
     <%= form_tag (add_orders_pi_path(@pi)) do %>
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Add Orders</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -294,6 +312,31 @@
       <% end %>
   </div>
 </div>
+
+
+<div class="modal fade" id="productAddModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <%= form_tag (add_products_pi_path(@pi)) do %>
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Add Products</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <%= select_tag "products",options_for_select(Product.pluck(:name,:id)),multiple: true,class:"form-control" %>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <%= submit_tag "Add Orders",class:"btn btn-primary" %>
+      </div>
+    </div>
+      <% end %>
+  </div>
+</div>
+
+
 
 <%= content_for :js do %>
   function calculate_total(){

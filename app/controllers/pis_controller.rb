@@ -1,5 +1,5 @@
 class PisController < ApplicationController
-  before_action :set_pi, only: [:show, :edit, :update, :destroy,:add_orders,:freeze]
+  before_action :set_pi, only: [:show, :edit, :update, :destroy,:add_orders,:freeze,:add_products]
 
   # GET /pis
   # GET /pis.json
@@ -67,6 +67,16 @@ class PisController < ApplicationController
     redirect_to pi_path(@pi),notice: "Orders added successfully"
 
   end
+
+  def add_products
+    params[:products].each do |product|
+      OrderDetail.create!(:product_id => product,:pi_id => @pi.id)
+    end
+    redirect_to pi_path(@pi),notice: "Orders added successfully"
+
+  end
+
+
 
   def freeze
 

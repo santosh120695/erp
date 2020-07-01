@@ -18,6 +18,7 @@ Rails.application.routes.draw do
   resources :pis do
     member do
       post "add_orders"
+      post "add_products"
       get 'freeze'
     end
   end

@@ -10,6 +10,8 @@ class OrderDetail < ApplicationRecord
   after_create :clone_costs
   def set_order_state
     self.order_state_id = OrderState.first.id
+    self.wooden_stage_id = WoodenStage.first.id
+    self.iron_stage_id = IronStage.first.id
   end
 
 
