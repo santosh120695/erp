@@ -11,12 +11,10 @@
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
-  <body class="c-app flex-row align-items-center">
-  <div class="container">
-  <%= yield %>
-  </div>
-  <!-- CoreUI and necessary plugins-->
-  <%= javascript_pack_tag "main" %>
-  <!--<![endif]-->
+  <body class="account-page" >
+    <div class="main-wrapper">
+      <%= yield %>
+    </div>
+    <%= javascript_pack_tag "main" %>
   </body>
 </html>
