@@ -10,6 +10,7 @@ require("channels")
 require("jquery")
 import('bootstrap')
 import('datatables.net-bs4')
+import 'owl.carousel/dist/owl.carousel';
 
 
 
@@ -24,5 +25,4 @@ import('datatables.net-bs4')
 // const imagePath = (name) => images(name, true)
 
 
-import 'owl.carousel/dist/owl.carousel';
 

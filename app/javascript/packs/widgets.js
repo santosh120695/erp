@@ -14,7 +14,7 @@ Chart.defaults.global.tooltips.enabled = false
 Chart.defaults.global.tooltips.mode = 'index'
 Chart.defaults.global.tooltips.position = 'nearest'
 Chart.defaults.global.tooltips.custom = coreui.ChartJS.customTooltips
-
+console.log('loaded')
 document.body.addEventListener('classtoggle', event => {
   if (event.detail.className === 'c-dark-theme') {
     if (document.body.classList.contains('c-dark-theme')) {

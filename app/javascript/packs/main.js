@@ -1,7 +1,7 @@
 /* eslint-disable object-shorthand */
 /* global Chart, coreui, getStyle, hexToRgba */
 // require ("charts")
-import {getStyle,hexToRgba} from "@coreui/coreui/dist/js/coreui-utilities"
+// import {getStyle,hexToRgba} from "@coreui/coreui/dist/js/coreui-utilities"
 
 
 /**
@@ -13,13 +13,13 @@ import {getStyle,hexToRgba} from "@coreui/coreui/dist/js/coreui-utilities"
 
 /* eslint-disable no-magic-numbers */
 // Disable the on-canvas tooltip
-Chart.defaults.global.pointHitDetectionRadius = 1
-Chart.defaults.global.tooltips.enabled = false
-Chart.defaults.global.tooltips.mode = 'index'
-Chart.defaults.global.tooltips.position = 'nearest'
+// Chart.defaults.global.pointHitDetectionRadius = 1
+// Chart.defaults.global.tooltips.enabled = false
+// Chart.defaults.global.tooltips.mode = 'index'
+// Chart.defaults.global.tooltips.position = 'nearest'
 // Chart.defaults.global.tooltips.custom = coreui.ChartJS.customTooltips
-Chart.defaults.global.defaultFontColor = '#646470'
-Chart.defaults.global.responsiveAnimationDuration = 1
+// Chart.defaults.global.defaultFontColor = '#646470'
+// Chart.defaults.global.responsiveAnimationDuration = 1
 
 // document.body.addEventListener('classtoggle', event => {
 //   if (event.detail.className === 'c-dark-theme') {
