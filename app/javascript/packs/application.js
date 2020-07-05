@@ -10,6 +10,7 @@ require("channels")
 require("@coreui/coreui/dist/js/coreui.bundle")
 require("jquery")
 import('bootstrap')
+import('datatables.net-bs4')
 
 
 

@@ -15,20 +15,27 @@
   </head>
 
   <body class="c-app">
-  <%= render "globals/sidebar" %>
-  <div class="c-wrapper c-fixed-components">
-   <%= render "globals/header" %>
-    <div class="c-body">
-      <main class="c-main">
+    <div class="main-wrapper">
+      <%= render "globals/header" %>
+      <%= render "globals/sidebar" %>
+      <div class="page-wrapper">
+        <div class="content container-fluid">
+
+          <%= yield %>
+        </div>
+      </div>
+    </div>
+  <!-- <div class="c-wrapper c-fixed-components"> -->
+    <!-- <div class="c-body"> -->
+      <!-- <main class="c-main">
         <div class="container-fluid">
           <div class="fade-in">
-           <%= yield %>
           </div>
         </div>
-      </main>
-<%= render "globals/footer" %>
-    </div>
-  </div>
+      </main> -->
+        <%#= render "globals/footer" %>
+    <!-- </div> -->
+  <!-- </div> -->
   <!-- CoreUI and necessary plugins-->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/chart.js@2.9.1/dist/Chart.min.css">
 

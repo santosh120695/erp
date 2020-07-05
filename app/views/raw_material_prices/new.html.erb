@@ -13,7 +13,18 @@
   <% end %>
 <% end %>
 
-<h5>New Price</h5>
-<hr>
+<div class="row">
+  <div class="col-sm-12">
+    <div class="card mb-0">
+      <div class="card-header">
+        <h5>New Price</h5>
+        <hr>
+      </div>
+      <div class="card-body">
+        <%= render 'form', raw_material_price: @raw_material_price %>
+      </div>
+    </div>
+  </div>
+</div>
 
-<%= render 'form', raw_material_price: @raw_material_price %>
+

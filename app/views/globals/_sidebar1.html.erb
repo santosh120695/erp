@@ -1,0 +1,42 @@
+<div class="c-sidebar c-sidebar-dark c-sidebar-fixed c-sidebar-lg-show" id="sidebar">
+  <div class="c-sidebar-brand d-lg-down-none">
+    <!-- <svg class="c-sidebar-brand-full" width="118" height="46" alt="CoreUI Logo">
+      <use xlink:href="assets/brand/coreui.svg#full"></use>
+    </svg>
+    <svg class="c-sidebar-brand-minimized" width="46" height="46" alt="CoreUI Logo">
+      <use xlink:href="assets/brand/coreui.svg#signet"></use>
+    </svg> -->
+    <h4>Scalene</h4>
+  </div>
+  <ul class="c-sidebar-nav">
+    <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link" href="/">
+     <i class="fa fa-chart-bar mr-2"></i>
+       Dashboard</a></li>
+    <li class="c-sidebar-nav-title">Product</li>
+    <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link" href="<%= products_path %>">
+      <i class="fa fa-couch mr-2"></i>
+      Products</a></li>
+    <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link" href="<%= pis_path %>">
+      <i class="fa fa-rupee-sign mr-2"></i>
+      PI</a></li>
+    <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link" href="<%= order_details_path %>">
+      <i class="fa fa-shopping-cart mr-2"></i>
+      Order</a></li>
+
+
+
+    <li class="c-sidebar-nav-title">Data Management</li>
+    <li class="c-sidebar-nav-item "><a class="c-sidebar-nav-link " href="<%= raw_materials_path %>">
+      <i class="fa fa-vial mr-2"></i>
+       Raw Materials</a>
+
+    </li>
+    <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link " href="#">
+      <i class="fa fa-cubes mr-2"></i>
+       Cost Heads</a>
+
+    </li>
+
+  </ul>
+  <button class="c-sidebar-minimizer c-class-toggler" type="button" data-target="_parent" data-class="c-sidebar-minimized"></button>
+</div>

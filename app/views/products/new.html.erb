@@ -11,7 +11,16 @@
     <i class="fa fa-undo mr-2"></i> Back
   <% end %>
 <% end %>
-
-<h4>New Product</h4>
-<hr>
-<%= render 'form', product: @product %>
+<div class="row">
+  <div class="col-sm-12">
+    <div class="card mb-0">
+      <div class="card-header">
+        <h4 class="card-title mb-0">New Product</h4>
+      </div>
+      <div class="card-body">
+        <%= render 'form', product: @product %>
+      </div>
+    </div>
+    <hr>
+  </div>
+</div>

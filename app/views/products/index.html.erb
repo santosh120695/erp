@@ -12,37 +12,47 @@
   <% end %>
 
 
-
-<h5>Listing all Products</h5>
-<hr>
-<table class="table table-bordered table-striped">
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Code</th>
-      <th>Dimension</th>
-      <th>Finish</th>
-      <th>Cost</th>
-      <th>Action</th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @products.each do |product| %>
-      <tr>
-        <td><%= product.name %></td>
-        <td><%= product.code %></td>
-        <td><%= product.dimension %></td>
-        <td><%= product.finish %></td>
-        <td><%= product.cost %></td>
-        <td>
-          <%= link_to product,class:"btn btn-sm btn-info" do %>
-          <i class="fa fa-eye mr-2"></i>  Details
-          <% end %>
-
-            </td>
-
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+<div class="row">
+  <div class="col-sm-12"> 
+    <div class="card mb-0">
+      <div class="card-header">
+        <h4 class="card-title mb-0">Listing all Products</h4>
+      </div>
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="datatable table table-stripped mb-0">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Code</th>
+                <th>Dimension</th>
+                <th>Finish</th>
+                <th>Cost</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+          
+            <tbody>
+              <% @products.each do |product| %>
+                <tr>
+                  <td><%= product.name %></td>
+                  <td><%= product.code %></td>
+                  <td><%= product.dimension %></td>
+                  <td><%= product.finish %></td>
+                  <td><%= product.cost %></td>
+                  <td>
+                    <%= link_to product,class:"btn btn-sm btn-info" do %>
+                    <i class="fa fa-eye mr-2"></i>  Details
+                    <% end %>
+          
+                      </td>
+          
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

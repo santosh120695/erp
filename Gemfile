@@ -27,7 +27,6 @@ gem 'rails-erd', group: :development
 # gem 'image_processing', '~> 1.2'
 
 gem 'devise'
-gem 'coreui-rails'
 gem "aws-sdk-s3", require: false
 
 gem 'simple_form'

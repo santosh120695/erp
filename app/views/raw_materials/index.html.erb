@@ -11,37 +11,43 @@
   <% end %>
 <% end %>
 
-
-
-<h5>Listing all Raw Materials</h5>
-<hr>
-
-
-
-<table class="table table-bordered table-striped">
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Material type</th>
-      <th>Action</th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @raw_materials.each do |raw_material| %>
-      <tr>
-        <td><%= raw_material.name %></td>
-        <td><%= raw_material.material_type %></td>
-        <td>
-          <%= link_to  raw_material,class:"btn btn-sm btn-info" do %>
-          <i class="fa fa-eye mr-2"></i> Details
-          <% end %>
-            </td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
+<div class="row">
+  <div class="col-sm-12">
+    <div class="card mb-0">
+      <div class="card-header">
+        <h5>Listing all Raw Materials</h5>
+        <hr>
+      </div>
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="datatable table table-stripped mb-0">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Material type</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+          
+            <tbody>
+              <% @raw_materials.each do |raw_material| %>
+                <tr>
+                  <td><%= raw_material.name %></td>
+                  <td><%= raw_material.material_type %></td>
+                  <td>
+                    <%= link_to  raw_material,class:"btn btn-sm btn-info" do %>
+                    <i class="fa fa-eye mr-2"></i> Details
+                    <% end %>
+                      </td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 <br>
 
 <%= link_to 'New Raw Material', new_raw_material_path %>

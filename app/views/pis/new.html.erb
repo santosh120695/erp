@@ -13,9 +13,18 @@
 <% end %>
 
 
+<div class="row">
+  <div class="col-sm-12">
+    <div class="card mb-0">
+      <div class="card-header">
+        <h4 class="card-title mb-0">New PI</h4>
+      </div>
+      <div class="card-body">
+        <%= render 'form', pi: @pi %>
+      </div>
+    </div>
+    <hr>
+  </div>
+</div>
 
-<h5>New PI</h5>
-<hr>
-
-<%= render 'form', pi: @pi %>
 

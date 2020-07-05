@@ -19,44 +19,52 @@
 
 
 <% end %>
-<h5>Product Details</h5>
-<hr>
-<table class="table table-bordered">
-  <tr>
-    <th>Name</th><td>  <%= @product.name %></td>
-    <th>Code</th><td>  <%= @product.code %></td>
-  </tr>
-  <tr>
-    <th>Dimension</th><td>  <%= @product.dimension %></td>
-    <th>Finish</th><td>  <%= @product.finish %></td>
-  </tr>
-  <tr>
-    <th>Packing Size</th><td>  <%= @product.packing_size %></td>
-    <th>CBM</th><td>  <%= @product.cbm %></td>
-  </tr>
-  <tr>
-    <th>Range</th><td>  <%= @product.range %></td>
-    <th>Cost</th><td>  <%= @product.cost %></td>
-  </tr>
-  <tr>
-    <th>Notes/Remarks</th>
-    <td colspan="3">
-      <%= @product.notes %>
-    </td>
-  </tr>
-  <tr>
-    <th>Images</th>
-    <td colspan="3">
-      <div class="owl-carousel">
-      <% @product.images.each do |i| %>
-      <%= image_tag i,class:"img-fluid" %>
-      <% end %>
+<div class="row">
+  <div class="col-sm-12">
+    <div class="card mb-0">
+      <div class="card-header">
+        <h4>Product Details</h4>
+        <hr>
       </div>
-    </td>
-  </tr>
+      <div class="card-body">
+        <table class="table table-bordered">
+          <tr>
+            <th>Name</th><td>  <%= @product.name %></td>
+            <th>Code</th><td>  <%= @product.code %></td>
+          </tr>
+          <tr>
+            <th>Dimension</th><td>  <%= @product.dimension %></td>
+            <th>Finish</th><td>  <%= @product.finish %></td>
+          </tr>
+          <tr>
+            <th>Packing Size</th><td>  <%= @product.packing_size %></td>
+            <th>CBM</th><td>  <%= @product.cbm %></td>
+          </tr>
+          <tr>
+            <th>Range</th><td>  <%= @product.range %></td>
+            <th>Cost</th><td>  <%= @product.cost %></td>
+          </tr>
+          <tr>
+            <th>Notes/Remarks</th>
+            <td colspan="3">
+              <%= @product.notes %>
+            </td>
+          </tr>
+          <tr>
+            <th>Images</th>
+            <td colspan="3">
+              <div class="owl-carousel">
+              <% @product.images.each do |i| %>
+              <%= image_tag i,class:"img-fluid" %>
+              <% end %>
+              </div>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
 
-
-
-</table>
 
 

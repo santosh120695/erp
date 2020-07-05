@@ -12,10 +12,19 @@
   <% end %>
 <% end %>
 
+<div class="row">
+  <div class="col-sm-12">
+    <div class="card mb-0">
+      <div class="card-header">
+        <h4 class="card-title mb-0">New Order</h4>
+      </div>
+      <div class="card-body">
+        <%= render 'form', order_detail: @order_detail %>
+      </div>
+    </div>
+    <hr>
+  </div>
+</div>
 
 
-<h5>New Order</h5>
-<hr>
-
-<%= render 'form', order_detail: @order_detail %>
 

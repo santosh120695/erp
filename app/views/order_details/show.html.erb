@@ -23,97 +23,91 @@
 
 
 <% end %>
-
-
-<h5>Order # <%= @order_detail.code %>
-  <span class="float-right badge badge-info"><%= @order_detail.order_state.name %></span>
-</h5>
-<hr>
-
-<table class="table table-bordered">
-  <tr>
-    <th>Product Name</th><td colspan="2"><%= link_to @order_detail.product.name,@order_detail.product %></td>
-    <th>Product ID</th><td colspan="2"> <%= @order_detail.product.code %></td>
-  </tr>
-  <tr>
-    <th>Product Images</th>
-    <td colspan="5">
-      <div class="owl-carousel">
-        <% @order_detail.product.images.each do |i| %>
-          <%= image_tag i,class:"img-fluid" %>
-        <% end %>
+<div class="row">
+  <div class="col-sm-12">
+    <div class="card mb-0">
+      <div class="card-header">
+        <h5>Order # <%= @order_detail.code %>
+        <span class="float-right badge badge-info"><%= @order_detail.order_state.name %></span>
       </div>
-    </td>
-
-  </tr>
-
-  <tr>
-    <th>Product Description</th>
-    <td colspan="2"><%= @order_detail.product.description %></td>
-<th>Product Dimensions</th>
-    <td colspan="2"><%= @order_detail.product.dimension %></td>
-
-
-  </tr>
-
-  <tr>
-    <th>Product WD Finish</th>
-    <td><%= @order_detail.product.finish %></td>
-<th>Product wooden Finish</th>
-    <td><%= @order_detail.product.wooden_finish %></td>
-<th>Product Iron Finish</th>
-    <td><%= @order_detail.product.iron_finish %></td>
-
-
-  </tr>
-  <tr>
-    <th>Program</th>
-    <td colspan="2"><%= @order_detail.program %></td>
-    <th>Delivery Weeks</th>
-    <td colspan="2"><%= @order_detail.delivery_week %></td>
-  </tr>
-  <tr>
-    <th>Quantity</th>
-    <td colspan="2"><%= @order_detail.quantity %></td>
-    <th>Amount(Rs)</th>
-    <td colspan="2"><%= @order_detail.total_amount.present? ? @order_detail.total_amount : "NA"  %></td>
-  </tr>
-
-
-  <tr>
-    <th>Product Budgeted Cost Rs</th>
-    <td colspan="2"><%= @order_detail.get_budget_cost %></td>
-    <th>Actual Cost Rs</th>
-    <td colspan="2"><%= @order_detail.get_actual_cost %> (<%= @order_detail.get_cost_variance %>)</td>
-
-  </tr>
-
-
-
-</table>
-
-<div class="row mt-3">
-  <div class="col-md-4">
-    <h6>Wooden Stage</h6>
-    <%= select_tag :wooden_state,options_for_select(WoodenStage.pluck(:name,:id),@order_detail.wooden_stage_id) ,class:"form-control"%>
-
-    <% @order_detail.wooden_stage_transition_logs.each do |wstl| %>
-    <div>
-      <%= wstl.user.name %> transitioned from <%= wstl.get_from %> to <%= wstl.get_to %>
+      <div class="card-body">
+        <table class="table table-bordered">
+          <tr>
+            <th>Product Name</th><td colspan="2"><%= link_to @order_detail.product.name,@order_detail.product %></td>
+            <th>Product ID</th><td colspan="2"> <%= @order_detail.product.code %></td>
+          </tr>
+          <tr>
+            <th>Product Images</th>
+            <td colspan="5">
+              <div class="owl-carousel">
+                <% @order_detail.product.images.each do |i| %>
+                  <%= image_tag i,class:"img-fluid" %>
+                <% end %>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <th>Product Description</th>
+            <td colspan="2"><%= @order_detail.product.description %></td>
+            <th>Product Dimensions</th>
+            <td colspan="2"><%= @order_detail.product.dimension %></td>
+          </tr>
+          <tr>
+            <th>Product WD Finish</th>
+            <td><%= @order_detail.product.finish %></td>
+            <th>Product wooden Finish</th>
+            <td><%= @order_detail.product.wooden_finish %></td>
+            <th>Product Iron Finish</th>
+            <td><%= @order_detail.product.iron_finish %></td>
+          </tr>
+          <tr>
+            <th>Program</th>
+            <td colspan="2"><%= @order_detail.program %></td>
+            <th>Delivery Weeks</th>
+            <td colspan="2"><%= @order_detail.delivery_week %></td>
+          </tr>
+          <tr>
+            <th>Quantity</th>
+            <td colspan="2"><%= @order_detail.quantity %></td>
+            <th>Amount(Rs)</th>
+            <td colspan="2"><%= @order_detail.total_amount.present? ? @order_detail.total_amount : "NA"  %></td>
+          </tr>
+          <tr>
+            <th>Product Budgeted Cost Rs</th>
+            <td colspan="2"><%= @order_detail.get_budget_cost %></td>
+            <th>Actual Cost Rs</th>
+            <td colspan="2"><%= @order_detail.get_actual_cost %> (<%= @order_detail.get_cost_variance %>)</td>
+          </tr>
+        </table>
+        
+        <div class="row mt-3">
+          <div class="col-md-4">
+            <h6>Wooden Stage</h6>
+            <%= select_tag :wooden_state,options_for_select(WoodenStage.pluck(:name,:id),@order_detail.wooden_stage_id) ,class:"form-control"%>
+        
+            <% @order_detail.wooden_stage_transition_logs.each do |wstl| %>
+            <div>
+              <%= wstl.user.name %> transitioned from <%= wstl.get_from %> to <%= wstl.get_to %>
+            </div>
+            <% end %>
+          </div>
+          <div class="col-md-4">
+            <h6>Iron Stage</h6>
+            <%= select_tag :iron_state,options_for_select(IronStage.pluck(:name,:id),@order_detail.iron_stage_id) ,class:"form-control"%>
+            <% @order_detail.iron_stage_transition_logs.each do |wstl| %>
+              <div>
+                <%= wstl.user.name %> transitioned from <%= wstl.get_from %> to <%= wstl.get_to %>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
     </div>
-    <% end %>
-
-  </div>
-  <div class="col-md-4">
-    <h6>Iron Stage</h6>
-    <%= select_tag :iron_state,options_for_select(IronStage.pluck(:name,:id),@order_detail.iron_stage_id) ,class:"form-control"%>
-    <% @order_detail.iron_stage_transition_logs.each do |wstl| %>
-      <div>
-        <%= wstl.user.name %> transitioned from <%= wstl.get_from %> to <%= wstl.get_to %>
-      </div>
-    <% end %>
   </div>
 </div>
+
+</h5>
+<hr>
 
 
 <%= content_for :js do %>
