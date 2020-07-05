@@ -28,7 +28,7 @@
       
       <!-- Account Logo -->
       <div class="account-logo">
-        <a href="index.html"><img src="assets/img/logo.png" alt="Dreamguy's Technologies"></a>
+        <a href="/"><img src="<%= asset_path('brand/company-log.svg')%>" alt="Dreamguy's Technologies"></a>
       </div>
       <!-- /Account Logo -->
       
@@ -36,8 +36,6 @@
         <div class="account-wrapper">
           <h3 class="account-title">Login</h3>
           <p class="account-subtitle">Access to our dashboard</p>
-          
-          <!-- Account Form -->
             <div class="form-group">
               <%= f.label :email %><br />
               <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control" %>
@@ -66,9 +64,7 @@
               </p>
             </div>
             <% end %>
-          <!-- /Account Form -->
-          
-        </div>
+          </div>
       </div>
     </div>
   </div>
