@@ -7,12 +7,22 @@
 <% end %>
 
 <%= content_for :buttons do %>
-  <%= link_to pis_path,class:"btn btn-info btn-sm float-right" do %>
-    <i class="fa fa-undo mr-2"></i> Back
+
+  <%= link_to freeze_pi_path,class:"btn btn-info btn-sm float-right" do %>
+    <i class="fa fa-undo mr-2"></i>
+    <% if @pi.pi_frozen? %>
+    Unfreeze
+      <% else %>
+      Freeze
+      <% end %>
   <% end %>
-  <%= link_to pis_path,class:"btn btn-success btn-sm float-right mr-2",data:{toggle:"modal",target:"#orderAddModal"} do %>
-    <i class="fa fa-plus mr-2"></i> Add Order
+  <%#= link_to pis_path,class:"btn btn-success btn-sm float-right mr-2",data:{toggle:"modal",target:"#orderAddModal"} do %>
+<!--    <i class="fa fa-plus mr-2"></i> Add Order-->
+  <%# end %>
+  <%= link_to pis_path,class:"btn btn-success btn-sm float-right mr-2",data:{toggle:"modal",target:"#productAddModal"} do %>
+    <i class="fa fa-plus mr-2"></i> Add Product
   <% end %>
+
   <%= link_to pis_path,class:"btn btn-warning btn-sm float-right mr-2",data:{toggle:"modal",target:"#orderAddModal"} do %>
     <i class="fa fa-file-pdf mr-2"></i> Print PI
   <% end %>
@@ -227,13 +237,267 @@
 </div>
 
 
+<h5>PI # <%= @pi.uuid %></h5>
+<hr>
+<table class="table table-bordered">
+  <tr>
+    <th colspan="12">PROFORMA INVOICE</th>
+  </tr>
+  <tr>
+    <td colspan="7" rowspan="4">
+      <strong>MAYANK EXPORTS</strong><br>
+      F-525-530, EPIP BORANADA,<br>
+      JODHPUR<br>
+      INDIA<br>
+      TEL. : 091-2931-281264, 281265
+    </td>
+    <th>Invoice No.</th>
+    <th>Date</th>
+  </tr>
+  <tr>
+    <td><%= @pi.uuid %></td>
+    <td><%= @pi.order_date.to_s(:long) %></td>
+  </tr>
+  <tr>
+    <th>Buyer Order No & Date</th>
+    <th>IEC no.1397010037</th>
+  </tr>
+  <tr>
+    <th><%= @pi.reference %> <%= @pi.buyer_order_date.to_s(:long) %></th>
+    <th>PAN: ADMPR2832C</th>
+  </tr>
+  <tr>
+    <td colspan="7" rowspan="7">
+      CONSIGNEE
+      <strong><%= @pi.customer.name %></strong>
+      <br>
+      <%= @pi.customer.address %>
+    </td>
+  </tr>
+  <tr>
+    <th>Place of receipt by Shipper</th>
+    <th>Destination</th>
+  </tr>
+  <tr>
+    <td><%= @pi.place_of_receipt_by_shipper %></td>
+    <td><%= @pi.destination %></td>
+
+  </tr>
+  <tr>
+    <th>City / Port of loading</th>
+    <th>City / Port of discharge</th>
+
+  </tr>
+  <tr>
+    <td><%= @pi.loading_location %></td>
+    <td><%= @pi.unloading_location %></td>
+
+  </tr>
+  <tr>
+    <th>Terms of Payment</th>
+    <th>Terms of Delivery</th>
+  </tr>
+  <tr>
+    <td><%= @pi.terms_of_payment %></td>
+    <td><%= @pi.terms_of_delivery %></td>
+  </tr>
+
+  <tr>
+    <td colspan="7" rowspan="7">
+      BUYER (IF OTHER than CONSIGNEE)
+      <strong><%= @pi.customer.name %></strong>
+      <br>
+      <%= @pi.customer.address %>
+    </td>
+  </tr>
+
+  <tr>
+    <th colspan="2">Country of Origin of goods</th>
+
+  </tr>
+  <tr>
+    <td colspan="2"><%= @pi.country_of_origin %></td>
+  </tr>
+  <tr>
+    <th colspan="2">Delivery</th>
+
+  </tr>
+  <tr>
+    <td colspan="2"><%= @pi.delivery_weeks %></td>
+  </tr>
+
+
+
+
+
+
+
+
+</table>
+<hr>
+<table class="table table-bordered">
+  <tr>
+    <th colspan="4">DESCRIPTION OF GOODS</th>
+    <th rowspan="3">Quantity(Pcs)</th>
+    <th rowspan="3">Rate(/pc)</th>
+    <th rowspan="3">CBM</th>
+
+    <th rowspan="3">Discount(%)</th>
+    <th rowspan="3">Amount</th>
+  </tr>
+  <tr>
+    <th colspan="4">Artistic Iron, Wooden Furniture and Hand cardf Items</th>
+  </tr>
+
+  <tr>
+    <th>Buyer Reference</th>
+    <th>Our Reference</th>
+    <th>Product</th>
+    <th>Packing Size</th>
+
+  </tr>
+
+  <% qty_total=0;cbm_total=0 %>
+    <% @pi.order_details.order(:created_at).each do |od| %>
+    <% qty_total = qty_total + od.quantity %>
+    <% cbm_total = cbm_total + od.product.cbm.to_f %>
+      <tr class="od-item">
+        <td>
+          <%= link_to od.buyer_reference.present? ? od.buyer_reference : "View Order",od %>
+        </td>
+        <td><%= od.code %></td>
+        <td>
+          <%= link_to od.product.name,od.product,target: "_blank" %>
+        </td>
+
+        <td>
+          <% if @pi.pi_frozen? %>
+            <%= od.packing_size %>
+            <% else %>
+          <%= text_field_tag :packing_size,od.packing_size,:class=>"form-control od-packing-size od-change",data:{field_name:"packing_size",order_id:od.id} %>
+            <% end %>
+        </td>
+        <td class="od-quantity">
+
+          <% if @pi.pi_frozen? %>
+            <%= od.quantity %>
+          <% else %>
+            <%= text_field_tag :quantity,od.quantity,:class=>"form-control od-quantity od-change",data:{field_name:"quantity",order_id:od.id} %>
+          <% end %>
+
+
+
+        </td>
+
+
+        <td>
+          <% if @pi.pi_frozen? %>
+          <%= od.rate %>
+          <%else %>
+            <%= text_field_tag :rate,od.rate,:class=>"form-control od-rate od-change",data:{field_name:"rate",order_id:od.id} %>
+          <%end %>
+            </td>
+        <td><%= od.product.cbm %></td>
+        <td>
+          <% if @pi.pi_frozen? %>
+          <%= od.discount_percentage  %>
+            <% else %>
+            <%= text_field_tag :rate,od.discount_percentage ,:class=>"form-control od-change od-discount-percentage", data:{field_name:"discount_percentage",order_id:od.id}%>
+            <% end %>
+        </td>
+        <td>
+
+          <% if @pi.pi_frozen? %>
+            <%= od.total_amount  %>
+          <% else %>
+            <%= text_field_tag :rate,od.total_amount ,:class=>"form-control od-change od-total-amount",data:{field_name:"total_amount",order_id:od.id}  %>
+          <% end %>
+
+
+        </td>
+      </tr>
+
+    <% end %>
+  <tr>
+    <td colspan="9" ></td>
+  </tr>
+  <tr>
+    <td colspan="9" ></td>
+  </tr>
+  <tr>
+    <td colspan="9" ></td>
+  </tr>
+  <tr>
+    <td colspan="9" ></td>
+  </tr>
+  <tr>
+    <td colspan="9">
+      BANK DETAILS :<br>
+      BANK ACCOUNT NOS: 51011355725<br>
+      Name of Bank: State Bank of India<br>
+      Address: Bhagat Ki Kothi,Jodhpur - 342 005<br>
+      Phone: +91 291 2634748<br>
+      Fax: +91 291 2721565<br>
+      Swift: SBININBBJ27<br>
+    </td>
+
+  </tr>
+
+
+  <tr>
+    <th colspan="4">Grand Total</th>
+    <td class="pi-qty-total"><%= qty_total %></td>
+    <td></td>
+    <td class="pi-cbm-total"><%= cbm_total %></td>
+    <td  colspan="4" class="pi-total text-right">
+      <% if @pi.pi_frozen? %>
+
+      <%= @pi.total %>
+      <% end %>
+    </td>
+
+  </tr>
+  <tr>
+    <td colspan="9">
+      Amount in Words
+    </td>
+  </tr>
+  <tr>
+    <td colspan="9">
+     <strong><%= @pi.total.to_i.rupees%></strong>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="6">
+      Declaration:
+      <br>
+      <br>
+      <br>
+      We declare that this Invoice shows the actual price of the goods described and that all particulars are true and correct.
+
+    </td>
+    <td colspan="3" class="text-right">
+      For Mayank Exports
+      <br>
+      <br>
+      <br>
+      <br>
+      Authorised Signatory
+
+    </td>
+  </tr>
+
+
+
+
+</table>
 
 <div class="modal fade" id="orderAddModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <%= form_tag (add_orders_pi_path(@pi)) do %>
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Add Orders</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -249,6 +513,31 @@
       <% end %>
   </div>
 </div>
+
+
+<div class="modal fade" id="productAddModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <%= form_tag (add_products_pi_path(@pi)) do %>
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Add Products</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <%= select_tag "products",options_for_select(Product.pluck(:name,:id)),multiple: true,class:"form-control" %>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <%= submit_tag "Add Orders",class:"btn btn-primary" %>
+      </div>
+    </div>
+      <% end %>
+  </div>
+</div>
+
+
 
 <%= content_for :js do %>
   function calculate_total(){
